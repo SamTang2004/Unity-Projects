@@ -27,8 +27,12 @@ namespace CMF {
         // Update is called once per frame
         void Update()
         {
-
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("PlayerLowerBoundTrigger"))
@@ -54,7 +58,7 @@ namespace CMF {
                     }
                 }
 
-        }
+            }
 
         }
         IEnumerator waitCoroutine() {

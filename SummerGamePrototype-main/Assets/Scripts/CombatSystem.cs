@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 namespace CMF
 {
  
@@ -14,6 +15,8 @@ namespace CMF
         public float knockbackTime = 5f;
         public int whatIsEnemy;
         public LayerMask EnemyLayerMask;
+
+        public GameObject HPText;
 
         public DamageDisplay dd;
 
@@ -33,7 +36,7 @@ namespace CMF
         // Update is called once per frame
         void Update()
         {
-            
+            HPText.GetComponent<TMPro.TextMeshProUGUI>().text = "HP: " + health;
         }
 
         private void OnCollisionEnter(Collision collision)

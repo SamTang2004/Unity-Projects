@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - PlayerLowerBoundTrigger
   - PowerUps
+  - Projectiles
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - ground
   - enemies
   - jumpPads
-  - 
+  - Player
   - 
   - 
   - 

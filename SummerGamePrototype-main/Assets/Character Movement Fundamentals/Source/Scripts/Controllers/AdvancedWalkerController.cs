@@ -190,7 +190,6 @@ namespace CMF
 			//Handle crouching.
 			HandleCrouch();
 
-
 			//Calculate movement velocity;
 			Vector3 _velocity = Vector3.zero;
 			if (currentControllerState == ControllerState.Grounded)
@@ -359,15 +358,16 @@ namespace CMF
 
 
 			if (Input.GetKey(KeyCode.C) && !Input.GetKey(KeyCode.LeftShift) && currentControllerState == ControllerState.Grounded)
-			{
+			{   
 
-					isCrouching = true;
-					coll.height = colliderHeight * crouchHeightModifier;
-					modelRoot.transform.localScale = new Vector3(modelRoot.transform.localScale.x, modelRootLocalScaleHeight * crouchHeightModifier, modelRoot.transform.localScale.z);
-					coll.center = new Vector3(coll.center.x, colliderPositionY * crouchHeightModifier, coll.center.z);
+
+				isCrouching = true;
+				coll.height = colliderHeight * crouchHeightModifier;
+				modelRoot.transform.localScale = new Vector3(modelRoot.transform.localScale.x, modelRootLocalScaleHeight * crouchHeightModifier, modelRoot.transform.localScale.z);
+				coll.center = new Vector3(coll.center.x, colliderPositionY * crouchHeightModifier, coll.center.z);
 				
 			}
-			else if (!IsGrounded() || !ceilingDetector.HitCeiling() && isCrouching)
+			else if (!IsGrounded() || (!ceilingDetector.HitCeiling() && isCrouching))
             {
 				isCrouching = false;
 				coll.height = colliderHeight;
@@ -484,6 +484,9 @@ namespace CMF
 			//Check if controller is sliding;
 			bool _isSliding = mover.IsGrounded() && IsGroundTooSteep();
 			
+
+
+
 
 			if (currentControllerState == ControllerState.Wallrunning)
             {
