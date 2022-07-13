@@ -8,7 +8,10 @@ namespace CMF
     {
         public Camera view;
         public Transform crosshair;
-        public GameObject Projectile;
+
+
+        [SerializeField]
+        private GameObject Projectile;
         public GameObject projectileCasing;
         public Animator anim;
         public AnimationClip shoot;
@@ -17,6 +20,10 @@ namespace CMF
         public float bulletSpeed = 4;
         public LayerMask whatIsBoundingBox;
         public Transform muzzlePosition;
+
+        public GameObject[] ammunitionTypes;
+        private int indexOfProjectile = 0;
+
 
         private Vector3 RelativePosition;
         private Vector3 originalRelativePosition;
@@ -33,6 +40,20 @@ namespace CMF
         // Update is called once per frame
         void Update()
         {
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (indexOfProjectile < ammunitionTypes.Length-1)
+                {
+                    indexOfProjectile += 1;
+                }
+                else
+                {
+                    indexOfProjectile = 0;
+                }
+                Projectile = ammunitionTypes[indexOfProjectile];
+            }
+
 
             if (Input.GetMouseButton(1))
             {
