@@ -10,7 +10,7 @@ namespace CMF
 		public Transform target;
 		Transform tr;
 
-		Vector3 currentPosition;
+		public Vector3 currentPosition;
 		
 		//Speed that controls how fast the current position will be smoothed toward the target position when 'Lerp' is selected as smoothType;
 		public float lerpSpeed = 20f;
@@ -39,7 +39,7 @@ namespace CMF
 		public SmoothType smoothType;
 
 		//Local position offset at the start of the game;
-		Vector3 localPositionOffset;
+		public Vector3 localPositionOffset;
 
 		Vector3 refVelocity;
 		
@@ -64,7 +64,10 @@ namespace CMF
 		}
 
 		void Update () {
-			if(updateType == UpdateType.LateUpdate)
+			currentPosition = transform.position;
+
+			localPositionOffset = tr.localPosition;
+			if (updateType == UpdateType.LateUpdate)
 				return;
 			SmoothUpdate();
 		}
@@ -80,8 +83,11 @@ namespace CMF
 			//Smooth current position;
 			currentPosition = Smooth (currentPosition, target.position, lerpSpeed);
 
+			
+				tr.position = currentPosition;
+            
 			//Set position;
-			tr.position = currentPosition;
+			
 		}
 
 		Vector3 Smooth(Vector3 _start, Vector3 _target, float _smoothTime)

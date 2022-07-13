@@ -17,7 +17,7 @@ public class CosmeticsMenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cosmeticsCanvas.active = false;
+        cosmeticsCanvas.SetActive(false);
         playerCamController = (ThirdPersonCameraController)FindObjectOfType(typeof(ThirdPersonCameraController));
     }
 
@@ -39,7 +39,7 @@ public class CosmeticsMenuManager : MonoBehaviour
 
     public void OpenDressingRoom()
     {
-        cosmeticsCanvas.active = true;
+        cosmeticsCanvas.SetActive(true);
         playerCam.enabled = false;
         cosmeticsCam.enabled = true;
         playerCamController.enabled = false;
@@ -47,7 +47,7 @@ public class CosmeticsMenuManager : MonoBehaviour
 
     public void CloseDressingRoom()
     {
-        cosmeticsCanvas.active = false;
+        cosmeticsCanvas.SetActive(false);
         playerCam.enabled = true;
         cosmeticsCam.enabled = false;
         playerCamController.enabled = true;

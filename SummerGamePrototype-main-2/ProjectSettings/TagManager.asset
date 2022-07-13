@@ -22,9 +22,9 @@ TagManager:
   - Walls
   - ground
   - enemies
-  - 
-  - 
-  - 
+  - detectionRanges
+  - Don't Destroy Projectiles When Touching These
+  - Bounding
   - 
   - 
   - 

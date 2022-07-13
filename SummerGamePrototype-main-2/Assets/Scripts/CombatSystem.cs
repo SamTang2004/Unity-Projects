@@ -39,6 +39,42 @@ namespace CMF
             HPText.GetComponent<TMPro.TextMeshProUGUI>().text = "HP: " + health;
         }
 
+        public void onHit(float damage)
+        {
+            if (canBeAttacked && health > 0)
+            {
+                health -= damage;
+
+
+                dd.StartPulse();
+            }
+            if (!waiting)
+            {
+
+                StartCoroutine(waitCoroutine());
+            }
+            if (health<= 0)
+            {
+                Debug.Log("health is zero.");
+            }
+
+        }
+
+        public void onHeal(float healing)
+        {
+            health += healing;
+            if (health > maxHealth)
+            {
+                health = maxHealth;
+            }
+
+            dd.StartPulse();
+
+        }
+
+
+
+
         private void OnCollisionEnter(Collision collision)
         {
 

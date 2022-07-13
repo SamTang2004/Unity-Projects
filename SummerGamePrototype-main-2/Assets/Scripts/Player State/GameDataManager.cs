@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Add System.IO to work with files!
-using System.IO;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class GameDataManager : MonoBehaviour
 {

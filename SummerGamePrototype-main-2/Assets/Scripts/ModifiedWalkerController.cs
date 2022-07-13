@@ -352,6 +352,13 @@ namespace CMF
 		[SerializeField]
 		private GameObject modelRoot;
 		private float modelRootLocalScaleHeight;
+
+		public bool getCrouchState()
+        {
+
+			return isCrouching;
+        }
+
 		void HandleCrouch() {
 
 

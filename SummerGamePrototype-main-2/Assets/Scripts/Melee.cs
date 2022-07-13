@@ -6,7 +6,7 @@ public class Melee : MonoBehaviour
 {
 
     public float slashAngle = 270f;
-
+    public Collider coll;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +23,6 @@ public class Melee : MonoBehaviour
             StartCoroutine(SlashCoroutine());
 
         }
-
 
     }
 
@@ -69,4 +68,6 @@ public class Melee : MonoBehaviour
 
         isSlashing = false;
     }
+
+    
 }

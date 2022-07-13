@@ -15,23 +15,52 @@ namespace CMF
         public float fireDelay = 0.2f; // delay.
         public float nextFireTime;
         public float bulletSpeed = 4;
-        public LayerMask whatIsPlayer;
+        public LayerMask whatIsBoundingBox;
         public Transform muzzlePosition;
 
+        private Vector3 RelativePosition;
+        private Vector3 originalRelativePosition;
         // Start is called before the first frame update
         void Start()
         {
-
+            RelativePosition = transform.localPosition;
+            originalRelativePosition = transform.localPosition;
         }
 
-        
 
+
+        public float raiseAmount = 0.26f;
         // Update is called once per frame
         void Update()
         {
+
+            if (Input.GetMouseButton(1))
+            {
+                RelativePosition = new Vector3(0, -1.118f, 0.5f);
+            }
+            else
+            {
+                RelativePosition = originalRelativePosition;
+            }
+            if (GetComponentInParent<ModifiedWalkerController>().getCrouchState())
+            {
+                Vector3 _resizeY = new Vector3(RelativePosition.x,
+                    RelativePosition.y / GetComponentInParent<ModifiedWalkerController>().crouchHeightModifier + raiseAmount,
+                    RelativePosition.z);
+                transform.localPosition = _resizeY;
+            }
+            else
+            {
+                transform.localPosition = RelativePosition;
+            }
+
+            
+
+
             GameObject pauseMenuUI = GameObject.Find("GameManager").transform.Find("PauseMenuUI").gameObject;
             RaycastHit hit;
-            Physics.Raycast(view.ScreenPointToRay(crosshair.position), out hit, float.PositiveInfinity, ~whatIsPlayer);
+            Physics.Raycast(view.ScreenPointToRay(crosshair.position), out hit, float.PositiveInfinity, whatIsBoundingBox);
+            //Debug.Log(Physics.Raycast(view.ScreenPointToRay(crosshair.position), out hit, float.PositiveInfinity, whatIsBoundingBox));
             //Debug.DrawRay(view.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 1)), transform.forward);
 
             //Debug.Log(hit.point);
@@ -44,13 +73,30 @@ namespace CMF
                 Debug.Log("fired");
 
                 nextFireTime = Time.time + fireDelay;
-                GameObject firedProjectile = Instantiate(Projectile, muzzlePosition.position,muzzlePosition.rotation);
-                firedProjectile.GetComponent<Projectile>().initialVelocity = transform.forward * bulletSpeed;
+                GameObject firedProjectile = Instantiate(Projectile, muzzlePosition.position, muzzlePosition.rotation);
+                if (!Input.GetMouseButton(1))
+                {
+                    firedProjectile.GetComponent<Projectile>().initialVelocity = transform.forward * bulletSpeed + getRandomVector3InMagnitudeRange(bulletSpread);
+
+                }
+                else
+                {
+                    firedProjectile.GetComponent<Projectile>().initialVelocity = transform.forward * bulletSpeed;
+                }
             }
 
 
         
         
+        }
+
+        public float bulletSpread = 4;
+        Vector3 getRandomVector3InMagnitudeRange(float range)
+        {
+
+            return new Vector3(Random.Range(-range, range), Random.Range(-range, range), Random.Range(-range, range));
+
+
         }
     }
 }

@@ -30,6 +30,7 @@ namespace CMF {
             cs = transform.parent.parent.parent.GetComponent<CombatSystem>();
             healthbar = GetComponentInChildren<Image>();
             nextColor = healthbar.color;
+            enableFade = true;
         }
 
         // Update is called once per frame
@@ -73,7 +74,7 @@ namespace CMF {
             nextColor.a = 1f;
             while (nextColor.a - 0 >= 0.1f)
             {
-                Debug.Log("Pulsing, " + nextColor.a);
+                //Debug.Log("Pulsing, " + nextColor.a);
                 nextColor.a = Mathf.Lerp(nextColor.a, 0, fadeRate * Time.deltaTime);
                 yield return null;
             }
