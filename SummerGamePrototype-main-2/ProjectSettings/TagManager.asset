@@ -12,6 +12,7 @@ TagManager:
   - PowerUps
   - PlayerLowerBoundTrigger
   - Projectiles
+  - Interactable
   layers:
   - Default
   - TransparentFX

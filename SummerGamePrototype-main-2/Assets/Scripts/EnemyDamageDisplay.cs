@@ -15,6 +15,7 @@ namespace CMF {
         [SerializeField]
         private Image healthbar;
 
+
         // Start is called before the first frame update
         void Start()
         {
@@ -26,6 +27,7 @@ namespace CMF {
         // Update is called once per frame
         void Update()
         {
+
             transform.LookAt(cameraPosition);
             healthbar.fillAmount = je.health / je.maxHealth;
 

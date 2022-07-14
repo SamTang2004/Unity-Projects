@@ -16,15 +16,17 @@ namespace CMF {
         {
             GetComponent<Rigidbody>().velocity = initialVelocity;
         }
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            if (collision.gameObject.GetComponent<Enemies>())
+            if (other.gameObject.GetComponent<Enemies>())
             {
-                collision.gameObject.GetComponent<Enemies>().onHit(damage);
+                other.gameObject.GetComponent<Enemies>().onHit(damage);
             }
-            Destroy(gameObject);
-        }
 
+
+            if (!(other.gameObject.layer == 10 || other.gameObject.GetComponentInParent<Mover>() || other.gameObject.GetComponent<Mover>()))
+                Destroy(gameObject);
+        }
     }
 
 }

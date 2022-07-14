@@ -41,7 +41,7 @@ namespace CMF
         void Update()
         {
 
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 if (indexOfProjectile < ammunitionTypes.Length-1)
                 {
@@ -50,6 +50,18 @@ namespace CMF
                 else
                 {
                     indexOfProjectile = 0;
+                }
+                Projectile = ammunitionTypes[indexOfProjectile];
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (indexOfProjectile == 0)
+                {
+                    indexOfProjectile = ammunitionTypes.Length - 1;
+                }
+                else
+                {
+                    indexOfProjectile -= 1;
                 }
                 Projectile = ammunitionTypes[indexOfProjectile];
             }
