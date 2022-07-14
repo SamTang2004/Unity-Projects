@@ -13,6 +13,7 @@ TagManager:
   - PlayerLowerBoundTrigger
   - Projectiles
   - Interactable
+  - Waypoints
   layers:
   - Default
   - TransparentFX

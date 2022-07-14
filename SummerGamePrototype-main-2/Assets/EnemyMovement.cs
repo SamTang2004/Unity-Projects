@@ -23,7 +23,9 @@ namespace CMF
 
         public bool TrackOnSight = false;
 
+        public bool InfiniteTrack = false;
 
+        public float detectionRange = 50;
 
         public List<GameObject> Waypoints { get => waypoints; set => waypoints = value; }
 
@@ -61,19 +63,27 @@ namespace CMF
                    maxDistance makes sure the AI is not too close and minimumDistance is making sure it's not too far.*/
                 RaycastHit hit;
                 
+                if (InfiniteTrack)
+                {
+                    Agent.SetDestination(Target.transform.position);
+                    continue;
+                }
+
                 if (TrackOnSight)
                 {
-                    Physics.Raycast(transform.position, Target.position - transform.position, out hit, float.PositiveInfinity);
-                    if (hit.collider.gameObject.GetComponent<Mover>() || hit.collider.gameObject.GetComponentInParent<Mover>())
+                    if (Physics.Raycast(transform.position, Target.position - transform.position, out hit, detectionRange))
                     {
-                        Debug.Log("Seeing player, Following player");
-                        Debug.Log(hit.collider.gameObject.name);
-                        Agent.SetDestination(Target.transform.position);
-                    }
-                    else
-                    {
-                        Debug.Log("Following waypoints");
-                        FollowWayPoints();
+                        if (hit.collider.gameObject.GetComponent<Mover>() || hit.collider.gameObject.GetComponentInParent<Mover>())
+                        {
+                            Debug.Log("Seeing player, Following player");
+                            Debug.Log(hit.collider.gameObject.name);
+                            Agent.SetDestination(Target.transform.position);
+                        }
+                        else
+                        {
+                            Debug.Log("Following waypoints");
+                            FollowWayPoints();
+                        }
                     }
                 }
                 else if (update < minimumDistance)
@@ -106,7 +116,7 @@ namespace CMF
         // possible AI behaviours:
         // Follow on sight within range
         // Follow regardless of sight within range
-        // Follow until can shoot player
+        // Follow until can shoot player, then stop
 
 
 
