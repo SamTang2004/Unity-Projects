@@ -430,10 +430,11 @@ namespace CMF
 		public float slideEndTime = 4;
 		private Vector3 slideDirection;
 		private bool hasSlided = false;
+		public LayerMask whatisPlayer;
 		private void HandleSlide()
         {
 
-			Debug.Log("Sliding: " + isSlipping + " beginVelocity:" + slideDirection + " Grounded: " + IsGrounded() + " Momentum: " + momentum + " slide speed: " + slideSpeed + "has slided: " + hasSlided);
+			//Debug.Log("Sliding: " + isSlipping + " beginVelocity:" + slideDirection + " Grounded: " + IsGrounded() + " Momentum: " + momentum + " slide speed: " + slideSpeed + "has slided: " + hasSlided);
 
 			if (Input.GetKeyUp(KeyCode.C))
 				hasSlided = false;
@@ -441,24 +442,20 @@ namespace CMF
 
 			if (Mathf.Abs(rb.velocity.magnitude) > beginSlideSpeedThreshold)
             {
-				Debug.Log(1);
+				//Debug.Log(1);
 				if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.C) && !hasSlided)
 				{
-					Debug.Log(2);
+					//Debug.Log(2);
 
 
 					if (!isSlipping)
 					{
 						slideDirection = rb.velocity;
 						slideBeginTime = Time.time;
-						slideSpeed = standardSlideSpeed;
+						slideSpeed = rb.velocity.magnitude;
 					}
 					isSlipping = true;
-					
-					if (slideSpeed <= 0)
-                    {
-						slideSpeed = standardSlideSpeed;
-                    }
+				
                 }
                 else
                 {
@@ -472,16 +469,42 @@ namespace CMF
 				hasSlided = false;
             }
 
-
+			//Debug.DrawRay(tr.position, Vector3.down, Color.red);
 			if (isSlipping)
             {
 				OnGroundContactLost();
 				rb.AddForce(-transform.up * 250, ForceMode.Force);
 				groundFriction = 0;
 				rb.AddForce(-transform.up * 100, ForceMode.Force);
+
+				RaycastHit hit;
+				if (Physics.Raycast(tr.position + tr.up * 2f, -tr.up, out hit, 10, ~whatisPlayer))
+                {
+					// this is the angle the player makes with the normal. 
+					// calculating the gravity * sin(angle) gives us the magnitude of the acceleration that the player should receive. 
+					Debug.Log("Raycast hits " + hit.collider.gameObject);
+                }
+                else
+                {
+					Debug.Log("Raycast did not hit");
+                }
+				Vector3 normal = hit.normal;
+				Debug.Log(Vector3.Angle(tr.up, hit.normal));
+				float slopeAngle = Vector3.Angle(tr.up, hit.normal);
+				Debug.Log(momentum);
+				
+				
+				float slideAcceleration = standardGravity * (Mathf.Abs(Mathf.Sin(slopeAngle * Mathf.Deg2Rad))) * 
+					Mathf.Cos(Mathf.Deg2Rad* Vector3.Angle( new Vector3(slideDirection.x, 0, slideDirection.z),new Vector3(normal.x, 0, normal.z))) ;
+				
+				Debug.Log("Acceleration: " + slideAcceleration + " Speed: " + slideSpeed + 
+					"Slope Direction: " + new Vector3(normal.x, 0, normal.z) + " Normal Direction: " + slopeAngle);
+
+				Debug.Log(Vector3.Angle(new Vector3(slideDirection.x, 0, slideDirection.z), new Vector3(normal.x, 0, normal.z)));
 				if (slideSpeed >= 7)
 				{
-					slideSpeed -= Time.deltaTime * 10;
+					if(IsGrounded())
+						slideSpeed += -Time.deltaTime * 10 + Time.deltaTime*slideAcceleration;
                 }
                 else
                 {
@@ -869,8 +892,7 @@ namespace CMF
 
 		//Events;
 
-
-		public float wallrunUpSpeed;
+		public float wallrunUpSpeed = 2;
 		//This function is called when the player has initiated a jump;
 		void OnJumpStart()
 		{
