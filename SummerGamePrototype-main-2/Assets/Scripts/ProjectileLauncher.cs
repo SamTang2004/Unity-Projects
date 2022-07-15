@@ -7,9 +7,13 @@ namespace CMF
     public class ProjectileLauncher : MonoBehaviour
     {
         public Camera view;
+
+        public Camera FPSView;
+        public Camera TPSView;
+
         public Transform crosshair;
 
-
+        public FirstPersonToggler fpt;
         [SerializeField]
         private GameObject Projectile;
         public GameObject projectileCasing;
@@ -40,6 +44,15 @@ namespace CMF
         // Update is called once per frame
         void Update()
         {
+            if (fpt.inFirstPerson)
+            {
+                view = FPSView;
+            }
+            else
+            {
+                view = TPSView;
+            }
+
 
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -92,14 +105,14 @@ namespace CMF
 
             GameObject pauseMenuUI = GameObject.Find("GameManager").transform.Find("PauseMenuUI").gameObject;
             RaycastHit hit;
-            Physics.Raycast(view.ScreenPointToRay(crosshair.position), out hit, float.PositiveInfinity, whatIsBoundingBox);
+            Physics.Raycast(view.ScreenPointToRay(crosshair.position), out hit, float.PositiveInfinity, ~(1<<3));
             //Debug.Log(Physics.Raycast(view.ScreenPointToRay(crosshair.position), out hit, float.PositiveInfinity, whatIsBoundingBox));
             //Debug.DrawRay(view.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 1)), transform.forward);
 
             //Debug.Log(hit.point);
             //transform.rotation = Quaternion.Lerp( transform.rotation, cam.rotation, Time.deltaTime * 10);
 
-            transform.LookAt(hit.point);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(hit.point - transform.position), Time.deltaTime * 20);
 
             if (Input.GetMouseButtonDown(0) && Time.time > nextFireTime && !pauseMenuUI.activeInHierarchy)
             {
@@ -116,6 +129,7 @@ namespace CMF
                 {
                     firedProjectile.GetComponent<Projectile>().initialVelocity = transform.forward * bulletSpeed;
                 }
+                firedProjectile.layer = 3;
             }
 
 

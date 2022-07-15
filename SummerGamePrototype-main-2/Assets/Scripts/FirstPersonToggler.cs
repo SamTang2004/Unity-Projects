@@ -11,7 +11,7 @@ namespace CMF {
         public Camera ThirdPersonCam;
         public Camera FirstPersonCam;
         private Vector3 firstPersonCamPosition;
-        bool inFirstPerson = false;
+        public bool inFirstPerson = false;
         public Vector3 originalPosition;
 
         // Start is called before the first frame update

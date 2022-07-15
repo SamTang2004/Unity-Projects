@@ -45,7 +45,6 @@ namespace CMF
 		//'GroundFriction' is used instead, if the controller is grounded;
 		public float airFriction = 0.5f;
 		public float groundFriction = 100f;
-		[SerializeField]
 		public float beginGroundFriction = 100f;
 		//Current momentum;
 		protected Vector3 momentum = Vector3.zero;
@@ -246,9 +245,8 @@ namespace CMF
 
 		public LayerMask whatIsGround;
 		private float DetectDistanceToGround() {
-			RaycastHit hit;
-			Physics.Raycast(EntityTransform.position, -EntityTransform.up, out hit, 100000, layerMask: whatIsGround);
-			return EntityTransform.position.y - hit.point.y;
+            Physics.Raycast(EntityTransform.position, -EntityTransform.up, out RaycastHit hit, 100000, layerMask: whatIsGround);
+            return EntityTransform.position.y - hit.point.y;
 		}
 		private Vector3 GetWallrunDirection()
 		{
@@ -477,18 +475,17 @@ namespace CMF
 				groundFriction = 0;
 				rb.AddForce(-transform.up * 100, ForceMode.Force);
 
-				RaycastHit hit;
-				if (Physics.Raycast(tr.position + tr.up * 2f, -tr.up, out hit, 10, ~whatisPlayer))
+                if (Physics.Raycast(tr.position + tr.up * 2f, -tr.up, out RaycastHit hit, 10, ~whatisPlayer))
                 {
-					// this is the angle the player makes with the normal. 
-					// calculating the gravity * sin(angle) gives us the magnitude of the acceleration that the player should receive. 
-					//Debug.Log("Raycast hits " + hit.collider.gameObject);
+                    // this is the angle the player makes with the normal. 
+                    // calculating the gravity * sin(angle) gives us the magnitude of the acceleration that the player should receive. 
+                    //Debug.Log("Raycast hits " + hit.collider.gameObject);
                 }
                 else
                 {
-					//Debug.Log("Raycast did not hit");
+                    //Debug.Log("Raycast did not hit");
                 }
-				Vector3 normal = hit.normal;
+                Vector3 normal = hit.normal;
 				Debug.Log(Vector3.Angle(tr.up, hit.normal));
 				float slopeAngle = Vector3.Angle(tr.up, hit.normal);
 				Debug.Log(momentum);
@@ -828,7 +825,7 @@ namespace CMF
 					
 					//Lower air control slightly with a multiplier to add some 'weight' to any momentum applied to the controller;
 					float _airControlMultiplier = 0.25f;
-					_horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate * _airControlMultiplier;
+					_horizontalMomentum += _airControlMultiplier * airControlRate * Time.deltaTime * _movementVelocity;
 				}
 				//If controller has not received additional momentum;
 				else

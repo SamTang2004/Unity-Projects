@@ -57,7 +57,7 @@ namespace CMF
 		//This coroutine ensures that platform movement always occurs after Fixed Update;
 		IEnumerator LateFixedUpdate()
 		{
-			WaitForFixedUpdate _instruction = new WaitForFixedUpdate();
+			WaitForFixedUpdate _instruction = new();
 			while(true)
 			{
 				yield return _instruction;
