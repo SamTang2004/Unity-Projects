@@ -421,8 +421,8 @@ namespace CMF
 		// and assign him a momentum that has the same x and z as his momentum before the sliding but different y
 		// 
 
-		public float slideSpeed = 24;
-		public float standardSlideSpeed = 24;
+		private float slideSpeed;
+		//public float standardSlideSpeed = 24;
 		public float beginSlideSpeedThreshold = 6;
 		[SerializeField]
 		public bool isSlipping = false;
@@ -482,11 +482,11 @@ namespace CMF
                 {
 					// this is the angle the player makes with the normal. 
 					// calculating the gravity * sin(angle) gives us the magnitude of the acceleration that the player should receive. 
-					Debug.Log("Raycast hits " + hit.collider.gameObject);
+					//Debug.Log("Raycast hits " + hit.collider.gameObject);
                 }
                 else
                 {
-					Debug.Log("Raycast did not hit");
+					//Debug.Log("Raycast did not hit");
                 }
 				Vector3 normal = hit.normal;
 				Debug.Log(Vector3.Angle(tr.up, hit.normal));
