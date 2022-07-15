@@ -8,7 +8,7 @@ public class ToggleOnOrOff : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Collision detected");
             if(objectToToggle.activeInHierarchy== true)

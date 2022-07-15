@@ -29,7 +29,7 @@ public class Melee : MonoBehaviour
 
     public float slashRate = 4;
     [SerializeField]
-    private bool isSlashing = false;
+    public bool isSlashing = false;
     IEnumerator SlashCoroutine()
     {
         isSlashing = true;
@@ -40,7 +40,7 @@ public class Melee : MonoBehaviour
         float time;
         while (t < 1f)
         {
-            Debug.Log("slashing. " + transform.localRotation.eulerAngles);
+            //Debug.Log("slashing. " + transform.localRotation.eulerAngles);
             t += Time.deltaTime* slashRate;
             time = Mathf.Min(1f, t + Time.deltaTime / duration);
             Vector3 newEulerOffset = new Vector3(0,1,0) * (endZRot * t);
@@ -55,7 +55,7 @@ public class Melee : MonoBehaviour
         t = 0;
         while (t < 1f)
         {
-            Debug.Log("slashing. " + transform.localRotation.eulerAngles);
+            //Debug.Log("slashing. " + transform.localRotation.eulerAngles);
             t += Time.deltaTime * slashRate;
             time = Mathf.Min(1f, t + Time.deltaTime / duration);
             Vector3 newEulerOffset = new Vector3(0, 1, 0) * (endZRot * t);

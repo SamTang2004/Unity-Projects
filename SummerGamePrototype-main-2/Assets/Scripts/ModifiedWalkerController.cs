@@ -45,7 +45,8 @@ namespace CMF
 		//'GroundFriction' is used instead, if the controller is grounded;
 		public float airFriction = 0.5f;
 		public float groundFriction = 100f;
-
+		[SerializeField]
+		public float beginGroundFriction = 100f;
 		//Current momentum;
 		protected Vector3 momentum = Vector3.zero;
 
@@ -191,6 +192,10 @@ namespace CMF
 			//Handle crouching.
 			HandleCrouch();
 
+			//Handle sliding.
+			HandleSlide();
+
+			HandleHeight();
 			//Calculate movement velocity;
 			Vector3 _velocity = Vector3.zero;
 			if (currentControllerState == ControllerState.Grounded)
@@ -370,20 +375,127 @@ namespace CMF
 
 
 				isCrouching = true;
-				coll.height = colliderHeight * crouchHeightModifier;
-				modelRoot.transform.localScale = new Vector3(modelRoot.transform.localScale.x, modelRootLocalScaleHeight * crouchHeightModifier, modelRoot.transform.localScale.z);
-				coll.center = new Vector3(coll.center.x, colliderPositionY * crouchHeightModifier, coll.center.z);
 				
 			}
 			else if (!IsGrounded() || (!ceilingDetector.HitCeiling() && isCrouching))
             {
 				isCrouching = false;
+				
+            }
+
+
+			
+		}
+
+
+
+
+		public bool hasReducedHeight;
+		private void HandleHeight()
+        {
+			hasReducedHeight = isCrouching || isSlipping;
+			if (hasReducedHeight)
+            {
+
+				coll.height = colliderHeight * crouchHeightModifier;
+				modelRoot.transform.localScale = new Vector3(modelRoot.transform.localScale.x, modelRootLocalScaleHeight * crouchHeightModifier, modelRoot.transform.localScale.z);
+				coll.center = new Vector3(coll.center.x, colliderPositionY * crouchHeightModifier, coll.center.z);
+            }
+            else
+            {
 				coll.height = colliderHeight;
 				modelRoot.transform.localScale = new Vector3(modelRoot.transform.localScale.x, modelRootLocalScaleHeight, modelRoot.transform.localScale.z);
 				coll.center = new Vector3(coll.center.x, colliderPositionY, coll.center.z);
-            }
-			
+
+			}
+
 		}
+
+
+
+
+
+
+		// when sliding down, raycast down and get angle of ground.
+		// after getting the angle of the ground, snap the player to somewhere above the slope
+		// and assign him a momentum that has the same x and z as his momentum before the sliding but different y
+		// 
+
+		public float slideSpeed = 24;
+		public float standardSlideSpeed = 24;
+		public float beginSlideSpeedThreshold = 6;
+		[SerializeField]
+		public bool isSlipping = false;
+		public float slideBeginTime = 0;
+		public float slideEndTime = 4;
+		private Vector3 slideDirection;
+		private bool hasSlided = false;
+		private void HandleSlide()
+        {
+
+			Debug.Log("Sliding: " + isSlipping + " beginVelocity:" + slideDirection + " Grounded: " + IsGrounded() + " Momentum: " + momentum + " slide speed: " + slideSpeed + "has slided: " + hasSlided);
+
+			if (Input.GetKeyUp(KeyCode.C))
+				hasSlided = false;
+
+
+			if (Mathf.Abs(rb.velocity.magnitude) > beginSlideSpeedThreshold)
+            {
+				Debug.Log(1);
+				if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.C) && !hasSlided)
+				{
+					Debug.Log(2);
+
+
+					if (!isSlipping)
+					{
+						slideDirection = rb.velocity;
+						slideBeginTime = Time.time;
+						slideSpeed = standardSlideSpeed;
+					}
+					isSlipping = true;
+					
+					if (slideSpeed <= 0)
+                    {
+						slideSpeed = standardSlideSpeed;
+                    }
+                }
+                else
+                {
+					isSlipping = false;
+                }
+
+            }
+            else
+            {
+				isSlipping= false;
+				hasSlided = false;
+            }
+
+
+			if (isSlipping)
+            {
+				OnGroundContactLost();
+				rb.AddForce(-transform.up * 250, ForceMode.Force);
+				groundFriction = 0;
+				rb.AddForce(-transform.up * 100, ForceMode.Force);
+				if (slideSpeed >= 7)
+				{
+					slideSpeed -= Time.deltaTime * 10;
+                }
+                else
+                {
+					slideSpeed = 0;
+					isSlipping = false;
+					hasSlided = true;
+                }
+            }
+            else
+            {
+				groundFriction = beginGroundFriction;
+			}
+
+        }
 
 
 
@@ -435,12 +547,18 @@ namespace CMF
             {
                 _velocity *= movementSpeed * crouchModifier;
             }
-            else
+			else
             {
 				_velocity *= movementSpeed;
             }
-			
 
+
+			if (isSlipping)
+			{
+				_velocity = new Vector3(slideDirection.normalized.x,0,slideDirection.normalized.z) * slideSpeed;
+
+			}
+				//Debug.Log("next velocity: " + _velocity);
 			return _velocity;
 		}
 
@@ -472,6 +590,10 @@ namespace CMF
 
 			return _velocity;
 		}
+
+
+
+
 
 		//Returns 'true' if the player presses the jump key;
 		protected virtual bool IsJumpKeyPressed()
@@ -663,7 +785,7 @@ namespace CMF
 			}
 
 			//Add gravity to vertical momentum;
-			_verticalMomentum -= tr.up * gravity * Time.deltaTime;
+			_verticalMomentum -= gravity * Time.deltaTime * tr.up;
 
 			//Remove any downward force if the controller is grounded;
 			if(currentControllerState == ControllerState.Grounded && VectorMath.GetDotProduct(_verticalMomentum, tr.up) < 0f)
@@ -689,7 +811,7 @@ namespace CMF
 				else
 				{
 					//Clamp _horizontal velocity to prevent accumulation of speed;
-					_horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate;
+					_horizontalMomentum += airControlRate * Time.deltaTime * _movementVelocity;
 					_horizontalMomentum = Vector3.ClampMagnitude(_horizontalMomentum, movementSpeed);
 				}
 			}
@@ -730,7 +852,7 @@ namespace CMF
 
 				//Apply additional slide gravity;
 				Vector3 _slideDirection = Vector3.ProjectOnPlane(-tr.up, mover.GetGroundNormal()).normalized;
-				momentum += _slideDirection * slideGravity * Time.deltaTime;
+				momentum += slideGravity * Time.deltaTime * _slideDirection;
 			}
 			
 			//If controller is jumping, override vertical velocity with jumpSpeed;
@@ -739,6 +861,7 @@ namespace CMF
 				momentum = VectorMath.RemoveDotVector(momentum, tr.up);
 				momentum += tr.up * jumpSpeed;
 			}
+
 
 			if(useLocalMomentum)
 				momentum = tr.worldToLocalMatrix * momentum;

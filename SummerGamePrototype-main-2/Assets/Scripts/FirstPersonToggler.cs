@@ -28,7 +28,7 @@ namespace CMF {
         void Update()
         {
 
-            if (GetComponentInParent<ModifiedWalkerController>().getCrouchState())
+            if (GetComponentInParent<ModifiedWalkerController>().hasReducedHeight)
             {
                 FirstPersonCam.transform.localPosition = new Vector3(firstPersonCamPosition.x,
                     (firstPersonCamPosition / GetComponentInParent<ModifiedWalkerController>().crouchHeightModifier).y,

@@ -23,7 +23,7 @@ public class LevelTransitioner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.CompareTag("Player"))
         {
             Debug.Log("In range");
             inRangeToMove = true;
@@ -50,7 +50,7 @@ public class LevelTransitioner : MonoBehaviour
     {
         if(inRangeToMove)
         {
-            if(Input.GetKey("e"))
+            if(Input.GetKey(KeyCode.E))
             {
                 SceneManager.LoadScene(nextSceneName);
             }

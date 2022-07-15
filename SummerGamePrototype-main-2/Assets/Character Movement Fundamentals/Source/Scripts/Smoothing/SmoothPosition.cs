@@ -104,17 +104,14 @@ namespace CMF
 			//Add local position offset to target;
 			_target += _offset;
 
-			//Smooth (based on chosen smoothType) and return position;
-			switch (smoothType)
-			{
-				case SmoothType.Lerp:
-					return Vector3.Lerp (_start, _target, Time.deltaTime * _smoothTime);
-				case SmoothType.SmoothDamp:
-					return Vector3.SmoothDamp (_start, _target, ref refVelocity, smoothDampTime);
-				default:
-					return Vector3.zero;
-			}
-		}
+            //Smooth (based on chosen smoothType) and return position;
+            return smoothType switch
+            {
+                SmoothType.Lerp => Vector3.Lerp(_start, _target, Time.deltaTime * _smoothTime),
+                SmoothType.SmoothDamp => Vector3.SmoothDamp(_start, _target, ref refVelocity, smoothDampTime),
+                _ => Vector3.zero,
+            };
+        }
 
 		//Reset stored position and move this gameobject directly to the target's position;
 		//Call this function if the target has just been moved a larger distance and no interpolation should take place (teleporting);

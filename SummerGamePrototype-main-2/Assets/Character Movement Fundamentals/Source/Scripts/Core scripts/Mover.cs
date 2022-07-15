@@ -150,7 +150,7 @@ namespace CMF
 				sphereCollider.radius = colliderHeight/2f;
 				sphereCollider.center = colliderOffset * colliderHeight;
 
-				sphereCollider.center = sphereCollider.center + new Vector3(0f, stepHeightRatio * sphereCollider.radius, 0f);
+				sphereCollider.center += new Vector3(0f, stepHeightRatio * sphereCollider.radius, 0f);
 				sphereCollider.radius *= (1f - stepHeightRatio);
 			}
 			else if(capsuleCollider)
@@ -159,7 +159,7 @@ namespace CMF
 				capsuleCollider.center = colliderOffset * colliderHeight;
 				capsuleCollider.radius = colliderThickness/2f;
 
-				capsuleCollider.center = capsuleCollider.center + new Vector3(0f, stepHeightRatio * capsuleCollider.height/2f, 0f);
+				capsuleCollider.center += new Vector3(0f, stepHeightRatio * capsuleCollider.height/2f, 0f);
 				capsuleCollider.height *= (1f - stepHeightRatio);
 
 				if(capsuleCollider.height/2f < capsuleCollider.radius)

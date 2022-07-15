@@ -402,7 +402,7 @@ namespace CMF
 			}
 
 			//Add gravity to vertical momentum;
-			_verticalMomentum -= tr.up * gravity * Time.deltaTime;
+			_verticalMomentum -= gravity * Time.deltaTime * tr.up;
 
 			//Remove any downward force if the controller is grounded;
 			if(currentControllerState == ControllerState.Grounded && VectorMath.GetDotProduct(_verticalMomentum, tr.up) < 0f)
@@ -422,13 +422,13 @@ namespace CMF
 					
 					//Lower air control slightly with a multiplier to add some 'weight' to any momentum applied to the controller;
 					float _airControlMultiplier = 0.25f;
-					_horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate * _airControlMultiplier;
+					_horizontalMomentum += _airControlMultiplier * airControlRate * Time.deltaTime * _movementVelocity;
 				}
 				//If controller has not received additional momentum;
 				else
 				{
 					//Clamp _horizontal velocity to prevent accumulation of speed;
-					_horizontalMomentum += _movementVelocity * Time.deltaTime * airControlRate;
+					_horizontalMomentum += airControlRate * Time.deltaTime * _movementVelocity;
 					_horizontalMomentum = Vector3.ClampMagnitude(_horizontalMomentum, movementSpeed);
 				}
 			}
@@ -469,7 +469,7 @@ namespace CMF
 
 				//Apply additional slide gravity;
 				Vector3 _slideDirection = Vector3.ProjectOnPlane(-tr.up, mover.GetGroundNormal()).normalized;
-				momentum += _slideDirection * slideGravity * Time.deltaTime;
+				momentum += slideGravity * Time.deltaTime * _slideDirection;
 			}
 			
 			//If controller is jumping, override vertical velocity with jumpSpeed;

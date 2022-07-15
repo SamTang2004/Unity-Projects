@@ -75,7 +75,7 @@ namespace CMF
             {
                 RelativePosition = originalRelativePosition;
             }
-            if (GetComponentInParent<ModifiedWalkerController>().getCrouchState())
+            if (GetComponentInParent<ModifiedWalkerController>().hasReducedHeight)
             {
                 Vector3 _resizeY = new Vector3(RelativePosition.x,
                     RelativePosition.y / GetComponentInParent<ModifiedWalkerController>().crouchHeightModifier + raiseAmount,

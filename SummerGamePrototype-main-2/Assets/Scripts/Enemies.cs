@@ -19,10 +19,6 @@ public abstract class Enemies : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public IEnumerator waitCoroutine()
     {

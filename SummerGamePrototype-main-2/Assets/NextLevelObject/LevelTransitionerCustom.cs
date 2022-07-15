@@ -42,7 +42,7 @@ public class LevelTransitionerCustom : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             inRangeToMove = false;
             floatingText.enabled = false;

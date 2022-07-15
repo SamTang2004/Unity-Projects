@@ -6,7 +6,6 @@ namespace CMF {
     public class Teleporter : MonoBehaviour
     {
         public GameObject teleportLocation;
-
         private void OnTriggerEnter(Collider other)
         {
 
@@ -14,6 +13,7 @@ namespace CMF {
             {
                 other.gameObject.GetComponentInParent<Mover>().gameObject.transform.position = teleportLocation.transform.position;
             }
+            
         }
 
     }

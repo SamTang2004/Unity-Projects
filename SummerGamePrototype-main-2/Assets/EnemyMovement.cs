@@ -51,6 +51,10 @@ namespace CMF
         }
 
         // Update is called once per frame
+
+
+        public float stopDistance = 9;
+
         private IEnumerator FollowTarget()
         {
             while (enabled)
@@ -71,17 +75,24 @@ namespace CMF
 
                 if (TrackOnSight)
                 {
-                    if (Physics.Raycast(transform.position, Target.position - transform.position, out hit, detectionRange))
+                    if (Physics.Raycast(transform.position, Target.position - transform.position, out hit, detectionRange, ~(1<<2)))
                     {
                         if (hit.collider.gameObject.GetComponent<Mover>() || hit.collider.gameObject.GetComponentInParent<Mover>())
                         {
-                            Debug.Log("Seeing player, Following player");
-                            Debug.Log(hit.collider.gameObject.name);
+                            //Debug.Log("Seeing player, Following player");
+                            //Debug.Log(hit.collider.gameObject.name);
                             Agent.SetDestination(Target.transform.position);
-                        }
+                            if (Mathf.Abs((Target.position - transform.position).magnitude) <= stopDistance)
+                            {
+
+                                Agent.SetDestination(transform.position);
+                            }
+
+
+                        } 
                         else
                         {
-                            Debug.Log("Following waypoints");
+                            //Debug.Log("Following waypoints");
                             FollowWayPoints();
                         }
                     }
@@ -93,9 +104,13 @@ namespace CMF
                 }
                 else //if (update > minimumDistance)
                 {
-                    Debug.Log("Following waypoints");
+                    //Debug.Log("Following waypoints");
                     FollowWayPoints();
                 }
+
+                //Debug.Log(Agent.destination + ", " + Mathf.Abs((transform.position - Target.position).magnitude));
+
+
                 yield return new WaitForSeconds(UpdateSpeed);
             }
         }

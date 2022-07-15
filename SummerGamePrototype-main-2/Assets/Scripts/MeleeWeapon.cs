@@ -19,7 +19,7 @@ public class MeleeWeapon : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Enemies>())
+        if (other.gameObject.GetComponent<Enemies>() && GetComponentInParent<Melee>().isSlashing)
         {
             other.gameObject.GetComponent<Enemies>().onHit(damage);
         }

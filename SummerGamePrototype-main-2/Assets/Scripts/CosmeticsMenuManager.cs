@@ -23,7 +23,7 @@ public class CosmeticsMenuManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.CompareTag("Player"))
         {
             OpenDressingRoom();
         }    

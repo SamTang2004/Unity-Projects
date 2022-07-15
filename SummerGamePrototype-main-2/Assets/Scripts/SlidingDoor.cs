@@ -22,11 +22,6 @@ namespace CMF {
         }
 
         // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         private void OnTriggerStay(Collider other)
         {
             //Debug.Log(other.gameObject);
