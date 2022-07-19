@@ -282,22 +282,32 @@ namespace CMF {
         IEnumerator Siege()
         {
             agent.speed = 0;
-
+            
             yield return 0;
         }
 
         // attacks
         IEnumerator NormalAttack()
         {
-            yield return 0;
+            while (true)
+            {
+                
+                yield return new WaitForSeconds(0.3f);
+            }
         }
 
         IEnumerator BarrageAttack()
         {
 
+
+
             yield return 0;
         }
 
+        IEnumerator RangedAttack()
+        {
 
+            yield return 0;
+        }
     }
 }
