@@ -12,10 +12,14 @@ public abstract class Enemies : MonoBehaviour
     [SerializeReference]
     public bool waiting = false;
     public int expGain = 5;
+
+    public LevelingSystem LS;
+
     // Start is called before the first frame update
     void Start()
     {
         
+        Debug.Log(LS);
     }
 
     // Update is called once per frame
@@ -37,6 +41,7 @@ public abstract class Enemies : MonoBehaviour
 
     public virtual void onHit(float damageAmount)
     {
+        LS = GameObject.Find("StatManager").GetComponent<LevelingSystem>();
 
         if (canBeAttacked)
             health -= damageAmount;
@@ -45,6 +50,7 @@ public abstract class Enemies : MonoBehaviour
         if (health <= 0)
         {
             // exp gain here
+            LS.EarnExperience(expGain);
             Destroy(gameObject);
         }
     }
