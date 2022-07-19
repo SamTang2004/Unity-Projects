@@ -42,7 +42,12 @@ namespace CMF
         // Melee System Control
         public bool meleeEnabled = true;
 
-
+        public GameObject voidBeamIcon;
+        public GameObject fireballIcon;
+        public GameObject beamIcon;
+        public GameObject windBladeIcon;
+        public GameObject lightningIcon;
+        public GameObject iceIcon;
         void Start()
         {
             talentUI = GameObject.Find("TalentUI");
@@ -80,7 +85,12 @@ namespace CMF
 
             // Magic Combat Logic
             UpdateMagicSystem();
-
+            voidBeamIcon.SetActive(voidBeamUnlocked);
+            fireballIcon.SetActive(fireballUnlocked);
+            beamIcon.SetActive(lightBeamUnlocked);
+            lightningIcon.SetActive(lightningUnlocked);
+            windBladeIcon.SetActive(windBladesUnlocked);
+            iceIcon.SetActive(iceSpikesUnlocked);
         }
 
         void UpdateMeleeSystem()

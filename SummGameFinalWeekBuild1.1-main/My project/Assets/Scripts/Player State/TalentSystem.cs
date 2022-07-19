@@ -31,7 +31,12 @@ public class TalentSystem : MonoBehaviour
         }
 
         Cursor.lockState = CursorLockMode.Confined;
-
+        voidBeamIcon.SetActive(cc.voidBeamUnlocked);
+        fireballIcon.SetActive(cc.fireballUnlocked);
+        beamIcon.SetActive(cc.lightBeamUnlocked);
+        voidBeamIcon.SetActive(cc.voidBeamUnlocked);
+        windBladeIcon.SetActive(cc.windBladesUnlocked);
+        iceIcon.SetActive(cc.iceSpikesUnlocked);
     }
 
     public void AddTalentPoints(int points)
@@ -85,6 +90,8 @@ public class TalentSystem : MonoBehaviour
     {
         UpdateTalentUIData();
     }
+
+
     public void UpdateTalentUIData()
     {
         SetTalentInfoCards();

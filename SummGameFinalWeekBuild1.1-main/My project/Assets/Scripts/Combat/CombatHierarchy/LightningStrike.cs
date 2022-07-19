@@ -20,10 +20,10 @@ namespace CMF
         }
         void OnTriggerEnter(Collider other)
         {
-            Debug.Log("LOLOLOL");
-            if (other.GetComponent<TakeDamage>())
+            //Debug.Log("LOLOLOL");
+            if (other.GetComponent<Enemies>())
             {
-                other.GetComponent<TakeDamage>().LowerHealth(Damage);
+                other.GetComponent<Enemies>().onHit(Damage);
             }
         }
     }

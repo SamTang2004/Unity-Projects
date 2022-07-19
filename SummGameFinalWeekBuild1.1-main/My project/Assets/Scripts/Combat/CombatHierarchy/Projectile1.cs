@@ -24,7 +24,7 @@ namespace CMF
             statsHandler = player.GetComponent<CombatController>().GetStatSystem();
             Damage += statsHandler.magicDamage;
             rigid = this.GetComponent<Rigidbody>();
-            cam = GameObject.FindWithTag("ModelRoot");
+            cam = GameObject.Find("CameraControls");
             Physics.IgnoreCollision(GetComponent<Collider>(), player.GetComponent<Collider>(), true);
             if (!(type == Type.MINION))
             {
@@ -36,9 +36,9 @@ namespace CMF
         protected void OnCollisionEnter(Collision collision)
         {
             Debug.Log(collision.gameObject);
-            if (collision.gameObject.GetComponent<TakeDamage>())
+            if (collision.gameObject.GetComponent<Enemies>())
             {
-                collision.gameObject.GetComponent<TakeDamage>().LowerHealth(Damage);
+                collision.gameObject.GetComponent<Enemies>().onHit(Damage);
             }
             if (name != "WindBlades")
             {
@@ -50,5 +50,10 @@ namespace CMF
                 Destroy(gameObject);
             }
         }
+
+
+        
+
+
     }
 }
