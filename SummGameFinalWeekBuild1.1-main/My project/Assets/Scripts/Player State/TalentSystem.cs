@@ -12,12 +12,7 @@ public class TalentSystem : MonoBehaviour
     public CombatController c;
     public PlayerStatsManager p;
 
-    public GameObject voidBeamIcon;
-    public GameObject fireballIcon;
-    public GameObject beamIcon;
-    public GameObject windBladeIcon;
-    public GameObject lightningIcon;
-    public GameObject iceIcon;
+
 
 
 
@@ -31,12 +26,7 @@ public class TalentSystem : MonoBehaviour
         }
 
         Cursor.lockState = CursorLockMode.Confined;
-        voidBeamIcon.SetActive(cc.voidBeamUnlocked);
-        fireballIcon.SetActive(cc.fireballUnlocked);
-        beamIcon.SetActive(cc.lightBeamUnlocked);
-        voidBeamIcon.SetActive(cc.voidBeamUnlocked);
-        windBladeIcon.SetActive(cc.windBladesUnlocked);
-        iceIcon.SetActive(cc.iceSpikesUnlocked);
+
     }
 
     public void AddTalentPoints(int points)
@@ -313,7 +303,6 @@ public class TalentSystem : MonoBehaviour
         cc.iceSpikesUnlocked = true;
         skillTreeProgression++;
         numTalentPoints -= 10;
-        iceIcon.SetActive(true);
         UpdateTalentUIData();
     }
     public void PurchaseDamageReduction1() {
@@ -331,7 +320,6 @@ public class TalentSystem : MonoBehaviour
         skillTreeProgression++;
         numTalentPoints -= 15;
         cc.windBladesUnlocked = true;
-        windBladeIcon.SetActive(true);
         UpdateTalentUIData();
     }
     public void PurchaseDamageReduction2() {
@@ -348,7 +336,6 @@ public class TalentSystem : MonoBehaviour
         }
         cc.lightningUnlocked = true;
         skillTreeProgression++;
-        lightningIcon.SetActive(true);
         numTalentPoints -= 15;
         UpdateTalentUIData();
     }
@@ -356,6 +343,7 @@ public class TalentSystem : MonoBehaviour
         if(skillTreeProgression == 6) {
             skillTreeProgression++;
             numTalentPoints -= 15;
+            GameObject.Find("Player").GetComponent<CombatSystem>().extraLives++;
             UpdateTalentUIData();
         }
     }

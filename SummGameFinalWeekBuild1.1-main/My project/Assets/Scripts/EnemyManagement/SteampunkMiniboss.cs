@@ -240,7 +240,7 @@ namespace CMF {
             while (true)
             {
                 agent.SetDestination(playerTransform.position);
-                yield return new WaitForFixedUpdate();
+                yield return new WaitForSeconds(0.2f);
             }
         }
 
@@ -258,13 +258,8 @@ namespace CMF {
                 {
                     agent.SetDestination(playerTransform.position);
                 }
-                else
-                {
-                    agent.SetDestination(transform.position + Random.Range(-13, 13) * transform.right);
-                    
-                }
 
-                yield return new WaitForFixedUpdate();
+                yield return new WaitForSeconds(0.2f);
 
             }
 
@@ -280,7 +275,7 @@ namespace CMF {
             while (true)
             {
                 agent.SetDestination(playerTransform.position);
-                yield return new WaitForFixedUpdate();
+                yield return new WaitForSeconds(0.2f);
             }
             
         }

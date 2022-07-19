@@ -420,6 +420,7 @@ MonoBehaviour:
   canBeAttacked: 1
   waiting: 0
   expGain: 5
+  LS: {fileID: 0}
   playerTransform: {fileID: 354204169001576733}
   bladeTransform: {fileID: 1883703606}
   attackRange: 3
@@ -490,6 +491,7 @@ MonoBehaviour:
   canBeAttacked: 1
   waiting: 0
   expGain: 5
+  LS: {fileID: 0}
   turretModel: {fileID: 1154208366}
   rotateSpeed: 10
   attackInterval: 0.5
@@ -1546,6 +1548,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244792956}
   m_CullTransparentMesh: 1
+--- !u!1 &262713828 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4967152489786569062, guid: 168661b0b07038648954b27505a06981, type: 3}
+  m_PrefabInstance: {fileID: 1458785238}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &295686819
 GameObject:
   m_ObjectHideFlags: 0
@@ -2808,6 +2815,7 @@ MonoBehaviour:
   canBeAttacked: 1
   waiting: 0
   expGain: 5
+  LS: {fileID: 0}
   jumpStrength: 10
   attackDamage: 1
   knockbackStrength: 10
@@ -3163,7 +3171,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3962985258412494110, guid: 711521173a38e604b8cf7bd32ecc1b2b, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3962985258412494110, guid: 711521173a38e604b8cf7bd32ecc1b2b, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3652,6 +3660,11 @@ Transform:
   m_Father: {fileID: 354204169001576733}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &541674393 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5324356101174897862, guid: 09c1516219ff2a846941bfa83fbfccf6, type: 3}
+  m_PrefabInstance: {fileID: 1901141459}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &541674394 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2953118837934491300, guid: 09c1516219ff2a846941bfa83fbfccf6, type: 3}
@@ -4424,7 +4437,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'HP:'
+  m_text: 'Lives:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5528,6 +5541,11 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &1005810744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6019548536250258869, guid: 104926b2ce3e703478d8763d1d205b83, type: 3}
+  m_PrefabInstance: {fileID: 1503912846}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1005810745 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1573407903106578474, guid: 104926b2ce3e703478d8763d1d205b83, type: 3}
@@ -5582,6 +5600,7 @@ MonoBehaviour:
   canBeAttacked: 1
   waiting: 0
   expGain: 5
+  LS: {fileID: 0}
   turretModel: {fileID: 1467891408}
   rotateSpeed: 10
   attackInterval: 1
@@ -6003,6 +6022,7 @@ MonoBehaviour:
   canBeAttacked: 1
   waiting: 0
   expGain: 5
+  LS: {fileID: 0}
   turretModel: {fileID: 923501628}
   rotateSpeed: 10
   attackInterval: 0.5
@@ -6027,7 +6047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2859072188301975034, guid: da316f970606eef4d933022fc618be04, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2859072188301975034, guid: da316f970606eef4d933022fc618be04, type: 3}
       propertyPath: m_AnchorMax.x
@@ -7299,6 +7319,7 @@ MonoBehaviour:
   canBeAttacked: 1
   waiting: 0
   expGain: 5
+  LS: {fileID: 7988083728844650244}
   jumpStrength: 10
   attackDamage: 1
   knockbackStrength: 10
@@ -7398,6 +7419,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!1 &1211415217 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6164743300838611974, guid: c3368fcf4a2fe504e96c8a8cb355050a, type: 3}
+  m_PrefabInstance: {fileID: 199763224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1211415218 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1459033010140485976, guid: c3368fcf4a2fe504e96c8a8cb355050a, type: 3}
@@ -8027,6 +8053,7 @@ MonoBehaviour:
   canBeAttacked: 1
   waiting: 0
   expGain: 5
+  LS: {fileID: 0}
   turretModel: {fileID: 1110736990}
   rotateSpeed: 10
   attackInterval: 1
@@ -10223,6 +10250,7 @@ MonoBehaviour:
   canBeAttacked: 1
   waiting: 0
   expGain: 5
+  LS: {fileID: 7988083728844650244}
   turretModel: {fileID: 2121995222}
   rotateSpeed: 10
   attackInterval: 1
@@ -11497,7 +11525,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1983030028}
   m_Layer: 0
-  m_Name: icons
+  m_Name: skillIcons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11522,7 +11550,7 @@ RectTransform:
   - {fileID: 541674394}
   - {fileID: 1211415218}
   m_Father: {fileID: 4435502492662759356}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12109,6 +12137,7 @@ MonoBehaviour:
   canBeAttacked: 1
   waiting: 0
   expGain: 5
+  LS: {fileID: 0}
   playerTransform: {fileID: 354204169001576733}
   bladeTransform: {fileID: 1471117199}
   attackRange: 3
@@ -14082,6 +14111,13 @@ MonoBehaviour:
   LightBeamCooldown: 10
   VoidBeamCooldown: 8
   MinionCooldown: 10
+  fireballUnlocked: 0
+  windBladesUnlocked: 0
+  iceSpikesUnlocked: 0
+  lightningUnlocked: 0
+  lightBeamUnlocked: 0
+  voidBeamUnlocked: 0
+  minionUnlocked: 0
   player: {fileID: 0}
   weapon: {fileID: 0}
   weaponControls: {fileID: 0}
@@ -14092,8 +14128,16 @@ MonoBehaviour:
   activeWeaponRotation: {x: 0, y: 0, z: 0, w: 0}
   state: {fileID: 0}
   rigid: {fileID: 0}
+  icons: {fileID: 1983030027}
   meleeEnabled: 1
+  voidBeamIcon: {fileID: 6456644537962346851}
+  fireballIcon: {fileID: 262713828}
+  beamIcon: {fileID: 541674393}
+  windBladeIcon: {fileID: 357379262288213033}
+  lightningIcon: {fileID: 1211415217}
+  iceIcon: {fileID: 1005810744}
   isRegening: 0
+  cameraRootTransform: {fileID: 356983925772118271}
 --- !u!114 &395402869525714363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16364,7 +16408,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4435502492662759356}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -19876,7 +19920,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4435502492662759356}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -20947,6 +20991,7 @@ MonoBehaviour:
   canBeAttacked: 1
   waiting: 0
   expGain: 5
+  LS: {fileID: 0}
   playerTransform: {fileID: 354204169001576733}
   agent: {fileID: 758345199281804745}
   normalAttackProjectile: {fileID: 0}
@@ -21682,7 +21727,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4435502492662759356}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 1.76, y: -0.065, z: -19.439}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -23835,13 +23880,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 620145098}
-  - {fileID: 551034861}
   - {fileID: 671425941573304990}
   - {fileID: 671425942700590591}
   - {fileID: 8997178666765094335}
   - {fileID: 3888631760992917580}
   - {fileID: 1983030028}
+  - {fileID: 620145098}
+  - {fileID: 551034861}
   m_Father: {fileID: 4435502492981378685}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25198,6 +25243,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7407174282171128847, guid: 598365949b02a10419bface9944edd1d, type: 3}
+      propertyPath: LS
+      value: 
+      objectReference: {fileID: 7988083728844650244}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 598365949b02a10419bface9944edd1d, type: 3}
 --- !u!224 &7589739165936947160
@@ -25237,7 +25286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   currentExp: 0
-  expToNextLvl: 0
+  expToNextLvl: 100
   expReqPerLvlFactor: 1.1
   talents: {fileID: 8518189192842810180}
   levelText: {fileID: 671425942700590588}
@@ -25970,6 +26019,12 @@ MonoBehaviour:
   numTalentPoints: 500
   c: {fileID: 395402869525714362}
   p: {fileID: 1604421363865543754}
+  voidBeamIcon: {fileID: 6456644537962346851}
+  fireballIcon: {fileID: 262713828}
+  beamIcon: {fileID: 541674393}
+  windBladeIcon: {fileID: 357379262288213033}
+  lightningIcon: {fileID: 1211415217}
+  iceIcon: {fileID: 1005810744}
   UIManager: {fileID: 2303351318048245244}
   numTalentsText: {fileID: 671425942124815518}
   manaText: {fileID: 671425941636647239}
@@ -25984,11 +26039,6 @@ MonoBehaviour:
   magicDmgProgressionState: 0
   phyDmgProgressionState: 0
   hpTalentProgressionState: 0
-  fireballIcon: {fileID: 0}
-  iceIcon: {fileID: 0}
-  lightningIcon: {fileID: 0}
-  voidBeamIcon: {fileID: 0}
-  beamIcon: {fileID: 0}
   dashUnlockText: {fileID: 671425942844609206}
   iceSpikesUnlockText: {fileID: 671425942962813631}
   windBladesUnlockText: {fileID: 671425942635261528}
@@ -26010,6 +26060,7 @@ MonoBehaviour:
   size: 0
   cooldownReduction: 0
   damageReduction: 0
+  cc: {fileID: 395402869525714362}
 --- !u!114 &8997178666765094328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26138,7 +26189,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4435502492662759356}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -1.862, y: -0.621, z: 21.701}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

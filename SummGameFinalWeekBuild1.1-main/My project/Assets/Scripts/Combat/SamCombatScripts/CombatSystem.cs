@@ -20,6 +20,9 @@ namespace CMF
 
         public DamageDisplay dd;
 
+        public int extraLives = 0;
+
+
         [SerializeField]
         private bool canBeAttacked = true;
 
@@ -58,7 +61,16 @@ namespace CMF
             }
             if (stm.health<= 0)
             {
-                Debug.Log("health is zero.");
+                if (extraLives > 0)
+                {
+                    extraLives--;
+                    stm.health = stm.maxHealth;
+                }
+                else
+                {
+                 // placeholder for death message
+                    Debug.Log("health is zero.");
+                }
             }
 
         }
