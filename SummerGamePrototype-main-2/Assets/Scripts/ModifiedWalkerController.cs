@@ -486,18 +486,18 @@ namespace CMF
                     //Debug.Log("Raycast did not hit");
                 }
                 Vector3 normal = hit.normal;
-				Debug.Log(Vector3.Angle(tr.up, hit.normal));
+				//Debug.Log(Vector3.Angle(tr.up, hit.normal));
 				float slopeAngle = Vector3.Angle(tr.up, hit.normal);
-				Debug.Log(momentum);
+				//Debug.Log(momentum);
 				
 				
 				float slideAcceleration = standardGravity * (Mathf.Abs(Mathf.Sin(slopeAngle * Mathf.Deg2Rad))) * 
 					Mathf.Cos(Mathf.Deg2Rad* Vector3.Angle( new Vector3(slideDirection.x, 0, slideDirection.z),new Vector3(normal.x, 0, normal.z))) ;
 				
-				Debug.Log("Acceleration: " + slideAcceleration + " Speed: " + slideSpeed + 
-					"Slope Direction: " + new Vector3(normal.x, 0, normal.z) + " Normal Direction: " + slopeAngle);
+				//Debug.Log("Acceleration: " + slideAcceleration + " Speed: " + slideSpeed + 
+					//"Slope Direction: " + new Vector3(normal.x, 0, normal.z) + " Normal Direction: " + slopeAngle);
 
-				Debug.Log(Vector3.Angle(new Vector3(slideDirection.x, 0, slideDirection.z), new Vector3(normal.x, 0, normal.z)));
+				//Debug.Log(Vector3.Angle(new Vector3(slideDirection.x, 0, slideDirection.z), new Vector3(normal.x, 0, normal.z)));
 				if (slideSpeed >= 7)
 				{
 					if(IsGrounded())

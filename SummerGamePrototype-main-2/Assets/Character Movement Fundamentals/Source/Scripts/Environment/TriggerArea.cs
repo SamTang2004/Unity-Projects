@@ -13,7 +13,7 @@ namespace CMF
 		//Check if the collider that just entered the trigger has a rigidbody (and a mover) attached and add it to the list;
 		void OnTriggerEnter(Collider col)
 		{
-			if(col.attachedRigidbody != null && col.GetComponent<Mover>() != null)
+			if(col.attachedRigidbody != null || col.GetComponent<Mover>() != null)
 			{
 				rigidbodiesInTriggerArea.Add(col.attachedRigidbody);
 			}
@@ -22,7 +22,7 @@ namespace CMF
 		//Check if the collider that just left the trigger has a rigidbody (and a mover) attached and remove it from the list;
 		void OnTriggerExit(Collider col)
 		{
-			if(col.attachedRigidbody != null && col.GetComponent<Mover>() != null)
+			if(col.attachedRigidbody != null || col.GetComponent<Mover>() != null)
 			{
 				rigidbodiesInTriggerArea.Remove(col.attachedRigidbody);
 			}
