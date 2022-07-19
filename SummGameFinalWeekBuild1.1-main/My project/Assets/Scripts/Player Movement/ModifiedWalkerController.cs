@@ -300,7 +300,7 @@ namespace CMF
 				{
 					Physics.Raycast(EntityTransform.position, -EntityTransform.right, out hit, 100, layerMask: whatIsWall);
 					//Debug.Log(Vector3.Project(rb.velocity, GetTangentDirection(hit)).magnitude );
-					if (Vector3.Project(rb.velocity, GetTangentDirection(hit)).magnitude > wallRunMinTangentialSpeed)
+					if (Vector3.Project(momentum, GetTangentDirection(hit)).magnitude > wallRunMinTangentialSpeed)
 					{
 						return true;
 					}
@@ -309,7 +309,7 @@ namespace CMF
 				if (wallOnRight && characterInput.GetHorizontalMovementInput() > 0)
 				{
 					Physics.Raycast(EntityTransform.position, EntityTransform.right, out hit, 100, layerMask: whatIsWall);
-					if (Vector3.Project(rb.velocity, GetTangentDirection(hit)).magnitude > wallRunMinTangentialSpeed)
+					if (Vector3.Project(momentum, GetTangentDirection(hit)).magnitude > wallRunMinTangentialSpeed)
 					{
 						return true;
 					}

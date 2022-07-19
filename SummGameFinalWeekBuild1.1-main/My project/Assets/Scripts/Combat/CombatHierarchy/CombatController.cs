@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 namespace CMF
 {
@@ -13,6 +13,12 @@ namespace CMF
         public float LightningDistance, LightningHeight, BeamDistance, minionDistance;
         public float FireballCooldown, WindBladesCooldown, IceSpikesCooldown, LightningCooldown, LightBeamCooldown, VoidBeamCooldown, MinionCooldown;
         float FC, WC, IC, LC, LBC, VC, MC;
+        public bool fireballUnlocked, windBladesUnlocked, iceSpikesUnlocked, lightningUnlocked, lightBeamUnlocked, voidBeamUnlocked, minionUnlocked;
+
+
+
+
+
         bool isEquipped = false;
         bool isMeleeAttack = false;
         int weaponIndex = 1, minionCycle = 0;
@@ -24,6 +30,14 @@ namespace CMF
         public Combat state;
         public Rigidbody rigid;
         GameObject[] minions = new GameObject[3];
+
+        PlayerStatsManager PSM;
+
+        public GameObject icons;
+
+
+
+
 
         // Melee System Control
         public bool meleeEnabled = true;
@@ -41,6 +55,15 @@ namespace CMF
             weaponPlace = weapon.transform.localPosition;
             weaponRotation = weapon.transform.localRotation;
             activeWeaponRotation = weaponRotation * Quaternion.Euler(0f, -90f, 0f);
+
+            PSM = GameObject.Find("StatManager").GetComponent<PlayerStatsManager>();
+
+            fireballUnlocked = true;
+
+            manaRegenerator = ManaRegen();
+            StartCoroutine(manaRegenerator);
+
+
         }
         void Update()
         {
@@ -95,43 +118,94 @@ namespace CMF
             weapon.SetActive(false);
         }
 
+        
+        IEnumerator manaRegenerator;
+        [SerializeField]
+        bool isRegening;
+        IEnumerator ManaRegen()
+        {
+            isRegening = true;
+            while (true)
+            {
+                if(PSM.mana < PSM.maxMana && manaRegenCooldownTimer <= 0)
+                {
+                    PSM.mana += 1;
 
+                }
+                //Debug.Log(PSM.mana);
+                yield return new WaitForSeconds(0.5f);
+            }
+
+        }
+
+        float manaRegenCooldownTimer = 0;
         void UpdateMagicSystem()
         {
+            int temp = 0;
+            
+            
             UpdateCooldown();
-
-            if (Input.GetKeyDown("f") && FC == 0f)
+            
+            if (fireballUnlocked && Input.GetKeyDown("f") && FC == 0f && PSM.mana >= 3)
             {
+
+                isRegening = false;
+                manaRegenCooldownTimer = 2;
+                PSM.mana -= 3;
                 StartFireball();
                 FC = FireballCooldown;
             }
-            if (Input.GetKeyDown("r") && WC == 0f)
+            if (windBladesUnlocked&& Input.GetKeyDown("r") && WC == 0f && PSM.mana >= 5)
             {
+                
+                isRegening = false;
+                manaRegenCooldownTimer = 2;
+                PSM.mana -= 5;
                 StartCoroutine(StartWindBlades());
                 WC = WindBladesCooldown;
             }
-            if (Input.GetKeyDown("t") && IC == 0f)
+            if (iceSpikesUnlocked&& Input.GetKeyDown("t") && IC == 0f && PSM.mana >= 4)
             {
+                
+                isRegening = false;
+                manaRegenCooldownTimer = 2;
+                PSM.mana -= 4;
                 StartIceSpikes();
                 IC = IceSpikesCooldown;
             }
-            if (Input.GetKeyDown("e") && LC == 0f)
+            if (lightningUnlocked&& Input.GetKeyDown("e") && LC == 0f && PSM.mana >= 8)
             {
+                
+                isRegening = false;
+                manaRegenCooldownTimer = 2;
+                PSM.mana -= 8;
                 StartLightning();
                 LC = LightningCooldown;
             }
-            if (Input.GetKeyDown("g") && LBC == 0f)
+            if (lightBeamUnlocked&& Input.GetKeyDown("g") && LBC == 0f && PSM.mana >= 20)
             {
+                
+                isRegening = false;
+                manaRegenCooldownTimer = 2;
+                PSM.mana -= 20;
                 StartCoroutine(StartBeam());
                 LBC = LightBeamCooldown;
             }
-            if (Input.GetKeyDown("v") && VC == 0f)
+            if (voidBeamUnlocked&& Input.GetKeyDown("v") && VC == 0f && PSM.mana >= 15)
             {
+                
+                isRegening = false;
+                manaRegenCooldownTimer = 2;
+                PSM.mana -= 15;
                 StartVoidBeam();
                 VC = VoidBeamCooldown;
             }
-            if (Input.GetKeyDown("b") && MC == 0f)
+            if (minionUnlocked&& Input.GetKeyDown("b") && MC == 0f && PSM.mana >= 7)
             {
+                
+                isRegening = false;
+                manaRegenCooldownTimer = 2;
+                PSM.mana -= 7;
                 CreateMinions();
             }
         }
@@ -140,6 +214,11 @@ namespace CMF
 
         void UpdateCooldown()
         {
+            if (manaRegenCooldownTimer > 0f)
+            {
+                manaRegenCooldownTimer -= Time.deltaTime;
+            }
+
             if (FC > 0f)
             {
                 FC = FC - Time.deltaTime;
@@ -246,16 +325,20 @@ namespace CMF
         {
             return statsHandler;
         }
+
+
+        public Transform cameraRootTransform;
+
         void StartFireball()
         {
-            GameObject o = Instantiate(obj[0], ModelRoot.transform.position + ModelRoot.transform.forward * 3f + new Vector3(0f, 3f, 0f), this.transform.rotation);
+            GameObject o = Instantiate(obj[0], ModelRoot.transform.position + ModelRoot.transform.forward * 3f + new Vector3(0f, 3f, 0f), cameraRootTransform.rotation);
             o.GetComponent<Rigidbody>().useGravity = false;
         }
         IEnumerator StartWindBlades()
         {
             for (int i = 0; i < 3; i++)
             {
-                Quaternion rotate = Quaternion.Euler(Random.Range(-45f, 45f), this.transform.rotation.y + 90f, Random.Range(-45f, 45f));
+                Quaternion rotate = Quaternion.Euler(cameraRootTransform.rotation.x + Random.Range(-20,20), cameraRootTransform.rotation.y + 90f, Random.Range(-45f, 45f));
                 GameObject o = Instantiate(obj[1], ModelRoot.transform.position + ModelRoot.transform.forward * 3f + new Vector3(0f, 3f, 0f), rotate);
                 o.GetComponent<Rigidbody>().useGravity = false;
                 yield return new WaitForSeconds(0.2f);
@@ -265,7 +348,7 @@ namespace CMF
         {
             for (int i = -2; i < 3; i++)
             {
-                GameObject o = Instantiate(obj[2], ModelRoot.transform.position + ModelRoot.transform.forward * 3f + new Vector3(0f, 3f, 0f) + ModelRoot.transform.right * i * 2, this.transform.rotation);
+                GameObject o = Instantiate(obj[2], ModelRoot.transform.position + ModelRoot.transform.forward * 3f + new Vector3(0f, 3f, 0f) + ModelRoot.transform.right * i * 2, cameraRootTransform.rotation);
                 o.GetComponent<Rigidbody>().useGravity = false;
             }
         }

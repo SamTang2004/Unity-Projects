@@ -11,6 +11,12 @@ public class SkillCD : MonoBehaviour
     public string textValue;
     public Text textElement;
 
+
+
+    public float CD;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +30,9 @@ public class SkillCD : MonoBehaviour
     {
         if (refilling)
         {
-            CDSlider.value = CDSlider.value > 0 ? CDSlider.value - Time.deltaTime : CDSlider.value;
-            textValue = CDSlider.value.ToString();
+            CDSlider.value = CDSlider.value > 0 ? CDSlider.value - Time.deltaTime/CD : CDSlider.value;
+            //Debug.Log(CDSlider.value);
+            textValue = (CDSlider.value * CD).ToString();
             textElement.text = textValue;
             if (CDSlider.value <= 0)
             {

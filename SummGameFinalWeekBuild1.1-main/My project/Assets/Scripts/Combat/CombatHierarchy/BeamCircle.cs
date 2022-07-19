@@ -16,9 +16,7 @@ namespace CMF
             Destroy(gameObject, Lifespan);
             StartCoroutine(Grow());
         }
-        void Update()
-        {
-        }
+
         IEnumerator Grow()
         {
             int iteration = 0;

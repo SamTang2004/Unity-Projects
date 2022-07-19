@@ -14,7 +14,7 @@ namespace CMF {
 
         Color nextColor;
 
-
+        public PlayerStatsManager stm;
 
         bool isPulsing = false;
 
@@ -31,13 +31,14 @@ namespace CMF {
             healthbar = GetComponentInChildren<Image>();
             nextColor = healthbar.color;
             enableFade = true;
+            stm = GameObject.Find("StatManager").GetComponent<PlayerStatsManager>();
         }
 
         // Update is called once per frame
         void Update()
         {
             healthbar.color = nextColor;
-            healthbar.fillAmount = cs.health / cs.maxHealth;
+            healthbar.fillAmount = stm.health / stm.maxHealth;
             if (enableFade)
             {
                 if (!isPulsing)

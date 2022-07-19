@@ -10,7 +10,7 @@ public class PlayerStats
     public int maxHealth;
     public int health;
     public int lives;
-
+    public int defense;
     // Collectable stat tracking
     public int currencyTotal;
 

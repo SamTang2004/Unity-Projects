@@ -9,31 +9,19 @@ public class ManaTest : MonoBehaviour
     public float refillSpeed;
     public bool refilling;
     public KeyCode MapedKey;
+
+
+    public PlayerStatsManager stm;
     // Start is called before the first frame update
     void Start()
     {
         manaSlider = GetComponent<Slider> ();
+        stm = GameObject.Find("StatManager").GetComponent<PlayerStatsManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (refilling)
-        {
-            manaSlider.value = manaSlider.value < 1 ? manaSlider.value + (refillSpeed * Time.deltaTime) : manaSlider.value;
-            if (manaSlider.value >= 1)
-            {
-                refilling = false;
-            }
-        }
-        if (Input.GetKeyDown(MapedKey))
-        {
-            refilling = false;
-            manaSlider.value = manaSlider.value - 0.1f;
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            refilling = true;
-        }
+        manaSlider.value = (float)stm.mana / stm.maxMana;
     }
 }

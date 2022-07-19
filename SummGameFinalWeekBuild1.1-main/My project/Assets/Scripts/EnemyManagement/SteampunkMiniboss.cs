@@ -257,18 +257,14 @@ namespace CMF {
                 if (Mathf.Abs(Vector3.Distance(transform.position, playerTransform.position)) > range && !canPerceivePlayer())
                 {
                     agent.SetDestination(playerTransform.position);
-                    yield return new WaitForFixedUpdate();
                 }
                 else
                 {
-
-
-                    agent.SetDestination(transform.position + Random.Range(-13, 13) * Vector3.right);
-
-                    yield return new WaitForFixedUpdate();
+                    agent.SetDestination(transform.position + Random.Range(-13, 13) * transform.right);
+                    
                 }
 
-
+                yield return new WaitForFixedUpdate();
 
             }
 

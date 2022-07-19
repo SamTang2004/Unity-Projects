@@ -7,7 +7,7 @@ namespace CMF {
     public class EnemyDamageDisplay : MonoBehaviour
     {
 
-        private JumpEnemies je;
+        private Enemies je;
 
         [SerializeField]
         private Transform cameraPosition;
@@ -19,7 +19,7 @@ namespace CMF {
         // Start is called before the first frame update
         void Start()
         {
-            je = GetComponentInParent<JumpEnemies>();
+            je = GetComponentInParent<Enemies>();
             healthbar = GetComponentInChildren<Image>();
 
         }

@@ -9,8 +9,6 @@ namespace CMF
     public class CombatSystem : MonoBehaviour
     {
         public int attackDamage = 1;
-        public int health = 5;
-        public int maxHealth = 5;
         public float invulnerabilityTime = 0.2f;
         public float knockbackTime = 5f;
         public int whatIsEnemy = 8;
@@ -34,26 +32,21 @@ namespace CMF
         {
             AWC = gameObject.GetComponent<ModifiedWalkerController>();
 
-            health = stm.health;
-            maxHealth = stm.maxHealth;
-
 
         }
 
         // Update is called once per frame
         void Update()
         {
-            stm.health = health;
-            stm.maxHealth = maxHealth;
 
             //HPText.GetComponent<TMPro.TextMeshProUGUI>().text = "HP: " + health;
         }
 
         public void onHit(int damage)
         {
-            if (canBeAttacked && health > 0)
+            if (canBeAttacked && stm.health > 0)
             {
-                health -= damage;
+                stm.health -= (int)(Mathf.Clamp((damage - stm.defense), 0, 2147483647));
 
 
                 dd.StartPulse();
@@ -63,7 +56,7 @@ namespace CMF
 
                 StartCoroutine(waitCoroutine());
             }
-            if (health<= 0)
+            if (stm.health<= 0)
             {
                 Debug.Log("health is zero.");
             }
@@ -72,10 +65,10 @@ namespace CMF
 
         public void onHeal(int healing)
         {
-            health += healing;
-            if (health > maxHealth)
+            stm.health += healing;
+            if (stm.health > stm.maxHealth)
             {
-                health = maxHealth;
+                stm.health = stm.maxHealth;
             }
 
             dd.StartPulse();
@@ -109,9 +102,9 @@ namespace CMF
                     transform.position += Vector3.up * 0.2f;
                     AWC.SetMomentum(normal * 10 + Vector3.up * 5);
                     //GetComponent<Rigidbody>().velocity = normal * 10;
-                    if (canBeAttacked && health > 0)
+                    if (canBeAttacked && stm.health > 0)
                     {
-                        health -= enemy.attackDamage;
+                        stm.health -= enemy.attackDamage;
 
                         if (dd.enableFade)
                         {
@@ -124,7 +117,7 @@ namespace CMF
                     {
                         StartCoroutine(waitCoroutine());
                     }
-                    if (health <= 0)
+                    if (stm.health <= 0)
                     {
                         Debug.Log("Health is zero.");
                     }

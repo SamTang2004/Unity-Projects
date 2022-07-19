@@ -3,11 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using CMF;
 
 public class TalentSystem : MonoBehaviour
 {
     public int numTalentPoints;
     int maxTalentPoints;
+    public CombatController c;
+    public PlayerStatsManager p;
+
+    public GameObject voidBeamIcon;
+    public GameObject fireballIcon;
+    public GameObject beamIcon;
+    public GameObject windBladeIcon;
+    public GameObject lightningIcon;
+    public GameObject iceIcon;
+
+
 
     public TalentUIManager UIManager;
 
@@ -68,11 +80,11 @@ public class TalentSystem : MonoBehaviour
     public int phyDmgProgressionState;
     public int hpTalentProgressionState;
 
+
     private void OnEnable()
     {
         UpdateTalentUIData();
     }
-
     public void UpdateTalentUIData()
     {
         SetTalentInfoCards();
@@ -164,6 +176,7 @@ public class TalentSystem : MonoBehaviour
         //numTalentPoints -= speedTalentProgressionState + 1;
         numTalentPoints--;
         manaProgressionState++;
+        p.maxMana += 2;
         UpdateTalentUIData();
     }
     public void PurchaseMagicUpgrade()
@@ -171,6 +184,7 @@ public class TalentSystem : MonoBehaviour
         //numTalentPoints -= jumpTalentProgressionState + 1;
         numTalentPoints--;
         magicDmgProgressionState++;
+        p.magicDamage++;
         UpdateTalentUIData();
     }
     public void PurchasePhysicalUpgrade()
@@ -178,6 +192,7 @@ public class TalentSystem : MonoBehaviour
         //numTalentPoints -= hpTalentProgressionState + 1;
         numTalentPoints--;
         phyDmgProgressionState++;
+        p.physicalDamage++;
         UpdateTalentUIData();
     }
     public void PurchaseHPUpgrade()
@@ -185,6 +200,9 @@ public class TalentSystem : MonoBehaviour
         //numTalentPoints -= hpTalentProgressionState + 1;
         numTalentPoints--;
         hpTalentProgressionState++;
+        p.maxHealth += 5;
+
+        Debug.Log(p.maxHealth);
         UpdateTalentUIData();
     }
     public void ResetTalentPoints()
@@ -228,7 +246,10 @@ public class TalentSystem : MonoBehaviour
 
     //vairbales for non linear branch nodes
     bool cool1, cool2;
-    
+
+    public CombatController cc;
+
+
     void SetSkillTreeInfoCard() {
         //main branch
         if(skillTreeProgression > 0) {
@@ -282,14 +303,17 @@ public class TalentSystem : MonoBehaviour
         if(skillTreeProgression != 1) {
             return;
         }
+        cc.iceSpikesUnlocked = true;
         skillTreeProgression++;
         numTalentPoints -= 10;
+        iceIcon.SetActive(true);
         UpdateTalentUIData();
     }
     public void PurchaseDamageReduction1() {
         if(skillTreeProgression == 2) {
             skillTreeProgression++;
             numTalentPoints -= 10;
+            p.defense++;
             UpdateTalentUIData();
         }
     }
@@ -299,12 +323,15 @@ public class TalentSystem : MonoBehaviour
         }
         skillTreeProgression++;
         numTalentPoints -= 15;
+        cc.windBladesUnlocked = true;
+        windBladeIcon.SetActive(true);
         UpdateTalentUIData();
     }
     public void PurchaseDamageReduction2() {
         if(skillTreeProgression == 4) {
             skillTreeProgression++;
             numTalentPoints -= 10;
+            p.defense++;
             UpdateTalentUIData();
         }
     }
@@ -312,7 +339,9 @@ public class TalentSystem : MonoBehaviour
         if(skillTreeProgression != 5) {
             return;
         }
+        cc.lightningUnlocked = true;
         skillTreeProgression++;
+        lightningIcon.SetActive(true);
         numTalentPoints -= 15;
         UpdateTalentUIData();
     }
@@ -328,12 +357,36 @@ public class TalentSystem : MonoBehaviour
     public void PurchaseCooldown1() {
         if(skillTreeProgression > 2) {
             numTalentPoints -= 7;
+
+            cc.FireballCooldown *= 0.9f;
+            cc.LightBeamCooldown *= 0.9f;
+            cc.LightningCooldown *= 0.9f;
+            cc.IceSpikesCooldown *= 0.9f;
+            cc.WindBladesCooldown *= 0.9f;
+            cc.VoidBeamCooldown *= 0.9f;
+
+            foreach(Transform i in cc.icons.transform){
+                i.GetChild(0).gameObject.GetComponent<SkillCD>().CD *= 0.9f;
+            }
+
             cool1 = true;
             UpdateTalentUIData();
         }
     }
     public void PurchaseCooldown2() {
         if(skillTreeProgression > 4) {
+            cc.FireballCooldown *= 0.9f;
+            cc.LightBeamCooldown *= 0.9f;
+            cc.LightningCooldown *= 0.9f;
+            cc.IceSpikesCooldown *= 0.9f;
+            cc.WindBladesCooldown *= 0.9f;
+            cc.VoidBeamCooldown *= 0.9f;
+
+            foreach (Transform i in cc.icons.transform)
+            {
+                i.GetChild(0).gameObject.GetComponent<SkillCD>().CD *= 0.9f;
+            }
+
             numTalentPoints -= 7;
             cool2 = true;
             UpdateTalentUIData();

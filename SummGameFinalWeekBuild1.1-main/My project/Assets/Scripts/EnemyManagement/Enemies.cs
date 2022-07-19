@@ -11,7 +11,7 @@ public abstract class Enemies : MonoBehaviour
     public bool canBeAttacked = true;
     [SerializeReference]
     public bool waiting = false;
-
+    public int expGain = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +44,7 @@ public abstract class Enemies : MonoBehaviour
         
         if (health <= 0)
         {
+            // exp gain here
             Destroy(gameObject);
         }
     }

@@ -8,11 +8,11 @@ namespace CMF
     public class HPPowerup: MonoBehaviour
     {
         public int addedHP = 3;
-
+        public PlayerStatsManager stm;
         // Start is called before the first frame update
         void Start()
         {
-
+            stm = GameObject.Find("StatManager").GetComponent<PlayerStatsManager>();
         }
 
         // Update is called once per frame
@@ -23,8 +23,8 @@ namespace CMF
             if (other.gameObject.GetComponent<AdvancedWalkerController>())
             {
                 
-                other.gameObject.GetComponent<CombatSystem>().health += addedHP;
-                other.gameObject.GetComponent<CombatSystem>().maxHealth += addedHP;
+                stm.health += addedHP;
+                stm.maxHealth += addedHP;
                 Destroy(gameObject);
             }
         }
