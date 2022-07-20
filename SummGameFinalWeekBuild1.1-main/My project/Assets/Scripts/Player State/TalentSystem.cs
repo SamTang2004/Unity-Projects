@@ -288,10 +288,14 @@ public class TalentSystem : MonoBehaviour
         else cool2UnlockText.text = "Required Points: 7";
     }
     //Main Branch
+
+
     public void PurchaseDash() {
         if(skillTreeProgression != 0) {
             return;
         }
+
+        GameObject.Find("Player").GetComponent<ModifiedWalkerController>().canDash = true;
         skillTreeProgression++;
         numTalentPoints -= 10;
         UpdateTalentUIData();

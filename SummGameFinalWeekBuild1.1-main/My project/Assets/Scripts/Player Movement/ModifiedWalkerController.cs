@@ -197,6 +197,8 @@ namespace CMF
 			HandleSlide();
 
 			HandleHeight();
+
+			HandleDashes();
 			//Calculate movement velocity;
 			Vector3 _velocity = Vector3.zero;
 			if (currentControllerState == ControllerState.Grounded)
@@ -403,8 +405,30 @@ namespace CMF
 
 		}
 
+		public bool canDash  = false;
+		public float dashDuration = 1;
+		float nextDashTime = 0;
+		public float dashCD = 0.1f;
+		public float dashSpeedMultiplier = 4;
+		bool hasDashed = false;
+		private void HandleDashes()
+        {
+			//Debug.Log(momentum);
+			Vector3 direction = CalculateMovementDirection();
+			if (Input.GetKey(KeyCode.LeftControl) && !hasDashed && Time.time > nextDashTime && !hasReducedHeight && canDash)
+            {
 
+				SetMomentum(new Vector3(direction.x * 20, 5, direction.z *20));
+				Debug.Log("Dashing " + momentum);
+				hasDashed = true;
+				nextDashTime = Time.time + dashCD;
+            }
+			if (Time.time > nextDashTime)
+            {
+				hasDashed = false;
+            }
 
+        }
 
 
 

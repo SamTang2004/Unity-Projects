@@ -2914,6 +2914,10 @@ MonoBehaviour:
   isCrouching: 0
   modelRoot: {fileID: 351694097438482219}
   hasReducedHeight: 0
+  canDash: 0
+  dashDuration: 1
+  dashCD: 0.5
+  dashSpeedMultiplier: 4
   beginSlideSpeedThreshold: 10
   isSlipping: 0
   slideBeginTime: 0
@@ -13782,7 +13786,7 @@ MonoBehaviour:
   castType: 1
   layerMask:
     serializedVersion: 2
-    m_Bits: 8183
+    m_Bits: 4087
   ignoreList:
   - {fileID: 362295846645265681}
   minimumDistanceFromObstacles: 0.3
