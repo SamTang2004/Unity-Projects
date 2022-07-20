@@ -107,13 +107,12 @@ namespace CMF
 
             GameObject pauseMenuUI = GameObject.Find("GameManager").transform.Find("PauseMenuUI").gameObject;
             RaycastHit hit;
-            Physics.Raycast(view.ScreenPointToRay(crosshair.position), out hit, float.PositiveInfinity, ~(1 << 3));
+            Physics.Raycast(view.ScreenToWorldPoint(crosshair.position), view.transform.forward, out hit, float.PositiveInfinity, ~(1 << 12));
             //Debug.Log(Physics.Raycast(view.ScreenPointToRay(crosshair.position), out hit, float.PositiveInfinity, whatIsBoundingBox));
-            //Debug.DrawRay(view.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 1)), transform.forward);
-
+            Debug.DrawRay(view.ScreenToWorldPoint(crosshair.position), view.transform.forward);
             //Debug.Log(hit.point);
             //transform.rotation = Quaternion.Lerp( transform.rotation, cam.rotation, Time.deltaTime * 10);
-
+            Debug.Log(hit.point);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(hit.point - transform.position), Time.deltaTime * 20);
 
             if (Input.GetMouseButtonDown(0) && Time.time > nextFireTime && !pauseMenuUI.activeInHierarchy)
